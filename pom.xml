@@ -5,7 +5,7 @@
 
   <groupId>uk.co.eduardo</groupId>
   <artifactId>complex-fourier</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>complex-fourier</name>
