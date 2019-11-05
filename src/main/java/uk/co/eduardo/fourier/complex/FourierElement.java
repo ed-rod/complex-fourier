@@ -17,8 +17,6 @@ public class FourierElement
 
    private final double magnitude;
 
-   private final double initialAngle;
-
    private Complex offset;
 
    private Complex position;
@@ -27,14 +25,17 @@ public class FourierElement
 
    private double time;
 
+   /**
+    * Initializes a new FourierElement object.
+    *
+    * @param frequency the frequency. Number of rotations per time unit.
+    * @param coefficient the complex coefficient for this fourier element that determines its magnitued and intial angle.
+    */
    public FourierElement( final int frequency, final Complex coefficient )
    {
       this.frequency = frequency;
       this.coefficient = coefficient;
       this.magnitude = coefficient.magnitude();
-      double val = coefficient.r / this.magnitude;
-      val = Math.min( Math.max( val, -1 ), 1 );
-      this.initialAngle = coefficient.i < 0 ? ( 2 * Math.PI ) - Math.acos( val ) : Math.acos( val );
 
       this.offset = new Complex( 0, 0 );
       this.position = new Complex( 0, 0 );
@@ -102,6 +103,17 @@ public class FourierElement
       return this.finalPos;
    }
 
+   /**
+    * Calculates the position of this fourier element based on the time. For every integer increment in the time, this fourier
+    * element will complete n cycles where n is its frequency.
+    * <p>
+    * This calculates the final position by calculating this elements position (for the current time) and then adding the offset
+    * from the previous elements final positions. Previous elements are those that have a lower frequency than this one.
+    *
+    * @param t the time
+    * @return the final position on the complex plane for this fourier element. This takes into account an offset (from other
+    *         fourier elements with lower frequencies).
+    */
    public final Complex updateTime( final double t )
    {
       this.time = t;

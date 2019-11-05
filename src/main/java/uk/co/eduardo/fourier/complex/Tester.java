@@ -38,16 +38,24 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 /**
- * TODO Insert description sentence here.
+ * Test application that renders the complex fourier animation.
  *
  * @author erodri02
  */
 public class Tester
 {
-   private static final int INCREMENT = 10;
+   // Delta T. We update the screen after this many milliseconds.
+   private static final int INCREMENT = 25;
 
+   // Without scaling, we will trace the outline path once a second. However, for clarity it is worth slowing down the animation
+   // This is the number of seconds it should take to trace the path per cycle
    private static final int SECONDS_PER_CYCLE = 6; //
 
+   /**
+    * Main entry point.
+    *
+    * @param args ignored.
+    */
    public static void main( final String[] args )
    {
       SwingUtilities.invokeLater( () -> start() );
@@ -80,8 +88,8 @@ public class Tester
             // Check to see if we've completed another cycle
             if( Math.floor( time ) > Math.floor( lastTime ) )
             {
+               // At the beginning, we add one frequency at a time.However, after a while we increase the number of elements
                final int f = frequency.getAndIncrement();
-               System.out.printf( "f=%d  f2=%f\n", f, Math.pow( 1.2, f ) );
                int frequencies = (int) Math.floor( Math.pow( 1.2, f ) );
                frequencies = Math.max( frequencies, f );
                final FourierGenerator newGenerator = new FourierGenerator( frequencies );
@@ -124,7 +132,7 @@ public class Tester
 
    private static JFrame createFrame( final JComponent panel )
    {
-      final JFrame frame = new JFrame( "Complex Fourier" );
+      final JFrame frame = new JFrame( "Complex Fourier" ); //$NON-NLS-1$
       frame.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
       frame.pack();
       frame.setSize( 500, 500 );
@@ -151,13 +159,9 @@ public class Tester
 
    private static PathDef createPathDefinition()
    {
-      final SvgPathDef svgPathDef = new SvgPathDef( "nail_gear.svg", "path16" );
+      // Open an path definition.
+      final SvgPathDef svgPathDef = new SvgPathDef( "nail_gear.svg", "path16" ); //$NON-NLS-1$ //$NON-NLS-2$
       return svgPathDef;
-
-      // return new DirectPathDef( new Point2D.Double( 0, -400 ),
-      // new Point2D.Double( 400, 0 ),
-      // new Point2D.Double( 0, 400 ),
-      // new Point2D.Double( -400, 0 ) );
    }
 
    private static void initializeLaf()

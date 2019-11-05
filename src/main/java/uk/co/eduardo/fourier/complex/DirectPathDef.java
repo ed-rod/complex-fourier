@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO Insert description sentence here.
+ * Path definition that is fromed from a bunch of points. The last point is automatically connected back to the first.
  *
  * @author erodri02
  */
@@ -27,7 +27,7 @@ public class DirectPathDef implements PathDef
    {
       if( points.length < 2 )
       {
-         throw new IllegalArgumentException( "Need at least two points in the path" );
+         throw new IllegalArgumentException( "Need at least two points in the path" ); //$NON-NLS-1$
       }
 
       // Create lines from all the points (joining the last one back to the beginning)

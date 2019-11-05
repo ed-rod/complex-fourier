@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * TODO Insert description sentence here.
+ * Generates a list of fourier elements that will approximate a path.
  *
  * @author erodri02
  */
@@ -19,11 +19,22 @@ public class FourierGenerator
 {
    private final int frequencies;
 
+   /**
+    * Initializes a new FourierGenerator object.
+    *
+    * @param frequencies the number of frequencies to calculate. Ranges from -frequencies to +frequencies.
+    */
    public FourierGenerator( final int frequencies )
    {
       this.frequencies = frequencies;
    }
 
+   /**
+    * Generates the fourier elements.
+    *
+    * @param path the path definition that we are trying to approximate.
+    * @return a list of fourier elements that will approximate the path.
+    */
    public List< FourierElement > generateElements( final PathDef path )
    {
       final List< FourierElement > elements = new ArrayList<>();
@@ -46,7 +57,6 @@ public class FourierGenerator
          }
          final Complex coefficient = new Complex( x, y );
          final FourierElement elem = new FourierElement( n, coefficient );
-         System.out.printf( "%d  (%.2f, %.2fi)\n", n, x, y );
          elements.add( elem );
       }
       Collections.sort( elements, new Comparator< FourierElement >()
